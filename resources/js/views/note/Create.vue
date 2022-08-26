@@ -9,21 +9,24 @@
                         <div class="mb-3">
                             <label class="form-label" for="title">Title</label>
                             <input type="text" v-model="form.title" id="title" class="form-control">
+                            <div v-if="err.title" class="mt-2 text-danger">{{ err.title[0] }}</div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="subject">Subject</label>
                             <select v-model="form.subject" id="subject" class="form-select">
-                                <option selected disabled value="">Choose one</option>
-                                <option v-for="s in subject" :key="s.id" :value="s.id">
+                                <option disabled value="">Choose one</option>
+                                <option v-for="s in subjects" :key="s.id" :value="s.id">
                                     {{ s.name }}
                                 </option>
                             </select>
+                            <div v-if="err.subject" class="mt-2 text-danger">{{ err.subject[0] }}</div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="description">Description</label>
                             <textarea v-model="form.description" id="description" rows="5" class="form-control"></textarea>
+                            <div v-if="err.description" class="mt-2 text-danger">{{ err.description[0] }}</div>
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-3">Save</button>
@@ -44,10 +47,11 @@ export default {
             form: {
                 title: '',
                 description: '',
-                subject: '',
+                subject: '', //select yg dipilih user nantinya
             },
-            subject: [],
-
+            successMessage: '',
+            subjects: [], //data untuk select dari db
+            err: [],
         }
     },
 
@@ -60,17 +64,36 @@ export default {
             let res = await axios.get('/api/subject')
             // console.log(res.data);
             if (res.status === 200) {
-                this.subject = res.data
+                this.subjects = res.data
             }
         },
 
         async store() {
-            let res = await axios.post('/api/note/create-new-note', this.form)
-            // console.log(res.data)
-            if (res.status === 200) {
-                this.form.title = ""
-                this.form.subject = ""
-                this.form.description = ""
+            try {
+                let res = await axios.post('/api/note/create-new-note', this.form)
+                // console.log(res.data)
+                if (res.status === 200) {
+                    this.form.title = ""
+                    this.form.subject = ""
+                    this.form.description = ""
+                    this.err = []
+
+                    this.$toasted.show(res.data.message, {
+                        type: 'success',
+                        duration: 3000,
+                        position: 'bottom-right',
+                        theme: 'outline'
+                    })
+                }
+            } catch (e) {
+                // console.log(e.response.data.errors);
+                this.err = e.response.data.errors;
+                this.$toasted.show("Something went wrong", {
+                    type: 'error',
+                    duration: 3000,
+                    position: 'bottom-right',
+                    theme: 'outline'
+                })
             }
         }
     }
