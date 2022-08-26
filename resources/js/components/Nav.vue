@@ -61,6 +61,13 @@
                                     >New Note</router-link
                                 >
                             </li>
+                            <li>
+                                <router-link
+                                    :to="{ name: 'note.list' }"
+                                    class="dropdown-item"
+                                    >Note List</router-link
+                                >
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
