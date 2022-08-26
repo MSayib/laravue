@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Note;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NoteResource;
 use App\Models\Note;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -10,6 +11,12 @@ use Illuminate\Support\Str;
 
 class NoteController extends Controller
 {
+    public function index()
+    {
+        $notes = Note::with('subject')->latest()->get();
+        return NoteResource::collection($notes);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,5 +37,12 @@ class NoteController extends Controller
             'message' => 'Note created.',
             'notes' => $note,
         ]);
+    }
+
+    public function show(Note $catatan)
+    {
+        // dd($catatan->toArray());
+        return new NoteResource($catatan);
+        // return NoteResource::make($catatan); //alternatif
     }
 }
