@@ -1,6 +1,8 @@
 import Home from '../views/Home'
 import About from '../views/About'
 import Contact from '../views/Contact'
+import NewNote from '../views/note/Create'
+
 export default {
     mode: 'history',
     linkActiveClass: 'active',
@@ -19,6 +21,11 @@ export default {
             path: '/contact',
             name: 'page.contact',
             component: Contact
+        },
+        {
+            path: '/note/create',
+            name: 'note.create',
+            component: NewNote
         },
     ]
 }

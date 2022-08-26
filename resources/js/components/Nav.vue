@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar scroll</a>
             <button
@@ -19,13 +19,29 @@
                     style="--bs-scroll-height: 100px"
                 >
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" exact :to="{name: 'home'}">Home</router-link>
+                        <router-link
+                            class="nav-link"
+                            aria-current="page"
+                            exact
+                            :to="{ name: 'home' }"
+                            >Home</router-link
+                        >
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" :to="{name: 'page.about'}">About</router-link>
+                        <router-link
+                            class="nav-link"
+                            aria-current="page"
+                            :to="{ name: 'page.about' }"
+                            >About</router-link
+                        >
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" :to="{name: 'page.contact'}">Contact</router-link>
+                        <router-link
+                            class="nav-link"
+                            aria-current="page"
+                            :to="{ name: 'page.contact' }"
+                            >Contact</router-link
+                        >
                     </li>
                     <li class="nav-item dropdown">
                         <a
@@ -35,21 +51,14 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            Link
+                            Note
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="#">Action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Another action</a
-                                >
-                            </li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                    >Something else here</a
+                                <router-link
+                                    :to="{ name: 'note.create' }"
+                                    class="dropdown-item"
+                                    >New Note</router-link
                                 >
                             </li>
                         </ul>
@@ -75,9 +84,5 @@
 </template>
 
 <script>
-export default {
-    mounted() {
-        console.log("Component mounted.");
-    },
-};
+export default {};
 </script>

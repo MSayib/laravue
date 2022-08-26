@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Note;
 
 use App\Http\Controllers\Controller;
 use App\Models\Note;
@@ -8,7 +8,7 @@ use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class PostController extends Controller
+class NoteController extends Controller
 {
     public function store(Request $request)
     {
