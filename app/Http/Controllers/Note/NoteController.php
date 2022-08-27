@@ -55,7 +55,7 @@ class NoteController extends Controller
         ]);
 
         $subject = Subject::findOrFail(request('subject'));
-        
+
         $catatan->update([
             'subject_id' => $subject->id,
             'title' => request('title'),
@@ -66,5 +66,13 @@ class NoteController extends Controller
             'message' => 'Note updated.',
             'notes' => $catatan,
         ]);
+    }
+
+    public function destroy(Note $catatan)
+    {
+        $catatan->delete();
+        return response()->json([
+            'message' => 'Your note was deleted.'
+        ], 200);
     }
 }

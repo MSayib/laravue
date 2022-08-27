@@ -70,9 +70,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Link</a>
-                    </li>
                 </ul>
                 <form class="d-flex" role="search">
                     <input

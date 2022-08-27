@@ -11,6 +11,7 @@ Route::namespace('Note')->group(function () {
         Route::get('{catatan:slug}', [NoteController::class, 'show'])->name('note.show');
         Route::patch('{catatan:slug}/edit', [NoteController::class, 'update']);
         Route::post('create-new-note', [NoteController::class, 'store']);
+        Route::delete('{catatan:slug}/delete', [NoteController::class, 'destroy']);
     });
 
     Route::prefix('subject')->group(function () {
