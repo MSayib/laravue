@@ -20,7 +20,7 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject' => 'required',
+            'subject' => 'required|numeric',
             'title' => 'required|min:3',
             'description' => 'required',
         ]);
@@ -44,5 +44,27 @@ class NoteController extends Controller
         // dd($catatan->toArray());
         return new NoteResource($catatan);
         // return NoteResource::make($catatan); //alternatif
+    }
+
+    public function update(Note $catatan)
+    {
+        request()->validate([
+            'subject' => 'required|numeric',
+            'title' => 'required|min:3',
+            'description' => 'required',
+        ]);
+
+        $subject = Subject::findOrFail(request('subject'));
+        
+        $catatan->update([
+            'subject_id' => $subject->id,
+            'title' => request('title'),
+            'description' => request('description'),
+        ]);
+
+        return response()->json([
+            'message' => 'Note updated.',
+            'notes' => $catatan,
+        ]);
     }
 }

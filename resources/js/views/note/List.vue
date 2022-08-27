@@ -15,6 +15,7 @@
                     <td><router-link :to="{name:'note.show', params:{ noteSlug: n.slug} }">{{ n.title }}</router-link></td>
                     <td>{{ n.subject }}</td>
                     <td>{{ n.published }}</td>
+                    <td><router-link :to="{name:'note.edit', params:{ noteSlug: n.slug} }">Edit</router-link></td>
                 </tr>
             </tbody>
         </table>

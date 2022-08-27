@@ -4,6 +4,7 @@ import Contact from '../views/Contact'
 import NewNote from '../views/note/Create'
 import NoteList from '../views/note/List'
 import ShowNote from '../views/note/Show'
+import EditNote from '../views/note/Edit'
 
 export default {
     mode: 'history',
@@ -38,6 +39,11 @@ export default {
             path: '/note/:noteSlug',
             name: 'note.show',
             component: ShowNote
+        },
+        {
+            path: '/note/:noteSlug/edit',
+            name: 'note.edit',
+            component: EditNote
         },
     ]
 }
