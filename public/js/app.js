@@ -5393,6 +5393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         subject: '' //select yg dipilih user nantinya, berbentuk ID
 
       },
+      loading: false,
       successMessage: '',
       subjects: [],
       //data untuk select dari db
@@ -5440,15 +5441,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                _this2.loading = true;
+                _context2.prev = 1;
+                _context2.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/note/create-new-note', _this2.form);
 
-              case 3:
+              case 4:
                 res = _context2.sent;
 
                 // console.log(res.data)
                 if (res.status === 200) {
+                  _this2.loading = false;
                   _this2.form.title = "";
                   _this2.form.subject = "";
                   _this2.form.description = "";
@@ -5462,13 +5465,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-                _context2.next = 11;
+                _context2.next = 13;
                 break;
 
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
-                // console.log(e.response.data.errors);
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                _this2.loading = false; // console.log(e.response.data.errors);
+
                 _this2.err = _context2.t0.response.data.errors;
 
                 _this2.$toasted.show("Something went wrong", {
@@ -5478,12 +5482,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   theme: 'outline'
                 });
 
-              case 11:
+              case 13:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[1, 8]]);
       }))();
     }
   }
@@ -5592,6 +5596,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       successMessage: '',
       subjects: [],
       selected: '',
+      loading: false,
       err: []
     };
   },
@@ -5669,18 +5674,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                // console.log(this.form)
+                _this3.loading = true; // console.log(this.form)
+
                 _this3.form['subject'] = _this3.selected || _this3.form.subject_id; // console.log(this.form)
 
-                _context3.prev = 1;
-                _context3.next = 4;
+                _context3.prev = 2;
+                _context3.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/note/".concat(_this3.$route.params.noteSlug, "/edit"), _this3.form);
 
-              case 4:
+              case 5:
                 res = _context3.sent;
 
                 if (res.status === 200) {
-                  // console.log('setelah di patch: ',res.data);
+                  _this3.loading = false; // console.log('setelah di patch: ',res.data);
+
                   _this3.$toasted.show(res.data.message, {
                     type: 'success',
                     duration: 3000,
@@ -5691,12 +5698,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this3.$router.push('/note/list');
                 }
 
-                _context3.next = 12;
+                _context3.next = 14;
                 break;
 
-              case 8:
-                _context3.prev = 8;
-                _context3.t0 = _context3["catch"](1);
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](2);
+                _this3.loading = false;
                 _this3.err = _context3.t0.response.data.errors;
 
                 _this3.$toasted.show("Something went wrong", {
@@ -5706,12 +5714,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   theme: 'outline'
                 });
 
-              case 12:
+              case 14:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 8]]);
+        }, _callee3, null, [[2, 9]]);
       }))();
     }
   }
@@ -6230,12 +6238,120 @@ var render = function render() {
     }
   }), _vm._v(" "), _vm.err.description ? _c("div", {
     staticClass: "mt-2 text-danger"
-  }, [_vm._v(_vm._s(_vm.err.description[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary mt-3",
+  }, [_vm._v(_vm._s(_vm.err.description[0]))]) : _vm._e()]), _vm._v(" "), [_vm.loading ? _c("button", {
+    staticClass: "btn btn-primary mt-3 d-flex align-items-center",
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Save")])])])])])])]);
+  }, [_c("svg", {
+    staticStyle: {
+      margin: "auto",
+      background: "none",
+      display: "block",
+      "shape-rendering": "auto"
+    },
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink",
+      width: "30px",
+      height: "24px",
+      viewBox: "0 0 100 100",
+      preserveAspectRatio: "xMidYMid"
+    }
+  }, [_c("rect", {
+    attrs: {
+      x: "17.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#ffffff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "18;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.2s"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "64;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.2s"
+    }
+  })]), _vm._v(" "), _c("rect", {
+    attrs: {
+      x: "42.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#f5fdff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "20.999999999999996;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.1s"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "58.00000000000001;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.1s"
+    }
+  })]), _vm._v(" "), _c("rect", {
+    attrs: {
+      x: "67.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#e7f6ff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "20.999999999999996;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "58.00000000000001;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1"
+    }
+  })])])]) : _c("button", {
+    staticClass: "btn btn-primary mt-3 d-flex align-items-center",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                              Save\n                          ")])]], 2)])])])])]);
 };
 
 var staticRenderFns = [];
@@ -6404,12 +6520,120 @@ var render = function render() {
     }
   }), _vm._v(" "), _vm.err.description ? _c("div", {
     staticClass: "mt-2 text-danger"
-  }, [_vm._v(_vm._s(_vm.err.description[0]))]) : _vm._e()]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-primary mt-3",
+  }, [_vm._v(_vm._s(_vm.err.description[0]))]) : _vm._e()]), _vm._v(" "), [_vm.loading ? _c("button", {
+    staticClass: "btn btn-primary mt-3 d-flex align-items-center",
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Update")])])])])])])]);
+  }, [_c("svg", {
+    staticStyle: {
+      margin: "auto",
+      background: "none",
+      display: "block",
+      "shape-rendering": "auto"
+    },
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink",
+      width: "30px",
+      height: "24px",
+      viewBox: "0 0 100 100",
+      preserveAspectRatio: "xMidYMid"
+    }
+  }, [_c("rect", {
+    attrs: {
+      x: "17.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#ffffff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "18;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.2s"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "64;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.2s"
+    }
+  })]), _vm._v(" "), _c("rect", {
+    attrs: {
+      x: "42.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#f5fdff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "20.999999999999996;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.1s"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "58.00000000000001;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1",
+      begin: "-0.1s"
+    }
+  })]), _vm._v(" "), _c("rect", {
+    attrs: {
+      x: "67.5",
+      y: "30",
+      width: "15",
+      height: "40",
+      fill: "#e7f6ff"
+    }
+  }, [_c("animate", {
+    attrs: {
+      attributeName: "y",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "20.999999999999996;30;30",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1"
+    }
+  }), _vm._v(" "), _c("animate", {
+    attrs: {
+      attributeName: "height",
+      repeatCount: "indefinite",
+      dur: "1s",
+      calcMode: "spline",
+      keyTimes: "0;0.5;1",
+      values: "58.00000000000001;40;40",
+      keySplines: "0 0.5 0.5 1;0 0.5 0.5 1"
+    }
+  })])])]) : _c("button", {
+    staticClass: "btn btn-primary mt-3 d-flex align-items-center",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("\n                              Update\n                          ")])]], 2)])])])])]);
 };
 
 var staticRenderFns = [];

@@ -19,6 +19,7 @@ class NoteController extends Controller
 
     public function store(Request $request)
     {
+        // sleep(3); //buat bikin delay
         $request->validate([
             'subject' => 'required|numeric',
             'title' => 'required|min:3',
